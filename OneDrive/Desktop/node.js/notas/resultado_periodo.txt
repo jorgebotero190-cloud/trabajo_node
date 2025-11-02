@@ -1,0 +1,10 @@
+=== REPORTE FINAL ===
+
+ingles: 4.0 → Aprobado
+fisica: 4.0 → Aprobado
+español: 4.0 → Aprobado
+tecnologia: 5.0 → Notable
+
+Promedio: 4.25
+Estado: APROBADO
+=====================
