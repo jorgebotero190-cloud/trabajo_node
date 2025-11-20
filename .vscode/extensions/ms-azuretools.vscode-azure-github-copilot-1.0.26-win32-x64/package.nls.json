@@ -1,0 +1,120 @@
+{
+    "extension.description": "GitHub Copilot for Azure is the @azure extension. It's designed to help streamline the process of developing for Azure. You can ask @azure questions about Azure services or get help with tasks related to Azure and developing for Azure, all from within Visual Studio Code.",
+    "extension.license": "SEE LICENSE IN LICENSE.md",
+    "chatParticipants.azure.fullName": "Azure",
+    "chatParticipants.azure.commands.learn.description": "Learn about Azure",
+    "chatParticipants.azure.commands.resources.description": "Get information about your Azure resources",
+    "chatParticipants.azure.commands.diagnose.description": "Diagnose problems with your Azure applications",
+    "chatParticipants.azure.commands.cost.description": "Query incurred costs of your Azure resources",
+    "chatParticipants.azure.commands.feedback.description": "Provide feedback or report an issue",
+    "chatParticipants.azure.commands.help.description": "Get help with the GitHub Copilot for Azure extension",
+    "chatParticipants.azure.commands.changeTenant.description": "Pick what tenant @azure should use",
+    "chatParticipants.azure.commands.exp.description": "Learn about Online Experimentation",
+    "commands.askAzure": {
+        "message": "Ask @azure",
+        "comment": [
+            "{Locked='@azure'}",
+            "Do not translate '@azure'; it is syntax for addressing the Azure agent."
+        ]
+    },
+    "commands.showOutputChannel": {
+        "message": "Show output channel"
+    },
+    "commands.openBugReport": {
+        "message": "Report an issue"
+    },
+    "commands.openFeatureRequest": {
+        "message": "Make a feature request"
+    },
+    "commands.writeAzureRules": {
+        "message": "Write Azure-related Copilot instructions"
+    },
+    "commands.clearAzureRules": {
+        "message": "Clear Azure-related Copilot instructions"
+    },
+    "configuration.argTenant.title": {
+        "message": "@azure Current Directory",
+        "comment": [
+            "{Locked='@azure'}",
+            "Do not translate '@azure'; it is syntax for addressing the Azure agent."
+        ]
+    },
+    "configuration.argTenant.description": {
+        "message": "The ID of the directory (tenant) @azure should use when querying Azure Resource Graph, or looking for/working with resources. If the value is empty or an invalid ID, then one of your home directories will be used.",
+        "comment": [
+            "{Locked='@azure'}",
+            "Do not translate '@azure'; it is syntax for addressing the Azure agent."
+        ]
+    },
+    "configuration.msLearnQueryType.title": {
+        "message": "@azure MS Learn Query Type",
+        "comment": [
+            "{Locked='@azure'}",
+            "Do not translate '@azure'; it is syntax for addressing the Azure agent."
+        ]
+    },
+    "configuration.msLearnQueryType.description": "The type of query to use when searching for MS Learn documentation.",
+    "configuration.deployModel.title": {
+        "message": "@azure Deploy OpenAI Model",
+        "comment": [
+            "{Locked='@azure'}",
+            "Do not translate '@azure'; it is syntax for addressing the Azure agent."
+        ]
+    },
+    "configuration.deployModel.description": "Enable deploying LLMs and other models to Azure OpenAI resources. Requires an Azure subscription ID, OpenAI resource name, specific model you intend to deploy and optionally model name you intend to deploy.",
+    "configuration.enableAutoSetAzureRules.title": {
+        "message": "@azure Auto set Azure rules",
+        "comment": [
+            "{Locked='@azure'}",
+            "Do not translate '@azure'; it is syntax for addressing the Azure agent."
+        ]
+    },
+    "configuration.enableAutoSetAzureRules.description": "Enable automatically setting the Azure related rules to the GitHub Copilot instructions for better LLM tool results.",
+    "walkthrough.atAzureStart.title": "Get Started with GitHub Copilot for Azure (@azure)",
+    "walkthrough.atAzureStart.description": {
+        "message": "Chat with @azure to get help with Azure services, developing for Azure, and Azure DevOps tasks, using GitHub Copilot in Visual Studio Code.",
+        "comment": [
+            "{Locked='@azure'}",
+            "Do not translate '@azure'; it is syntax for addressing the Azure agent."
+        ]
+    },
+    "walkthrough.atAzureStart.getHelpWithAzure.title": "Get help with Azure",
+    "walkthrough.atAzureStart.getHelpWithAzure.description": {
+        "message": "Enter **@azure** in the Copilot chat window to start a conversation.\n**@azure** can help with deploying your resources, diagnosing and troubleshooting problems, cost management, using the Azure Developer CLI (azd), and more, without you having to switch to the Azure portal.\n[Chat with @azure](command:@azure.walkthroughPrompt?%5B%22@azure%20What%20kinds%20of%20things%20can%20you%20help%20me%20with?%22%5D)",
+        "comment": [
+            "{Locked='@azure'}",
+            "Do not translate '@azure'; it is syntax for addressing the Azure agent.",
+            "Do not translate any of the words in the command URL."
+        ]
+    },
+    "walkthrough.atAzureStart.generateQualityResponses.title": "Generate quality responses",
+    "walkthrough.atAzureStart.generateQualityResponses.description": {
+        "message": "When you write prompts, try to include specific instructions or any information that might help **@azure** have more context about your request, such as the subscription ID or resource name.\nYou can also ask follow-up questions or use the suggested prompts at the end of the response.",
+        "comment": [
+            "{Locked='@azure'}",
+            "Do not translate '@azure'; it is syntax for addressing the Azure agent."
+        ]
+    },
+    "walkthrough.atAzureStart.changeTenants.title": "Change response scope",
+    "walkthrough.atAzureStart.changeTenants.description": {
+        "message": "Responses from **@azure** are scoped to a default tenant. To change the scope, enter the command **/changeTenant** in the chat and choose a different tenant, which will become the new default.\nLearn how to [set your default tenant](https://learn.microsoft.com/en-us/azure/developer/github-copilot-azure/get-started#optional-set-your-default-tenant)",
+        "comment": [
+            "{Locked='@azure'}",
+            "Do not translate '@azure'; it is syntax for addressing the Azure agent."
+        ]
+    },
+    "walkthrough.atAzureStart.learnMoreAboutAtAzure.title": {
+        "message": "Learn more about @azure",
+        "comment": [
+            "{Locked='@azure'}",
+            "Do not translate '@azure'; it is syntax for addressing the Azure agent."
+        ]
+    },
+    "walkthrough.atAzureStart.learnMoreAboutAtAzure.description": {
+        "message": "[Learn more](https://learn.microsoft.com/en-us/azure/developer/github-copilot-azure/) about GitHub Copilot for Azure.\n[Provide feedback](https://github.com/microsoft/GitHub-Copilot-for-Azure/issues) on **@azure**, upvote a feature idea or request a new one, and search for potential work-arounds to problems you're having.\n[View](https://github.com/microsoft/GitHub-Copilot-for-Azure/releases) GitHub Copilot for Azure new releases, improvements, and change logs.",
+        "comment": [
+            "{Locked='@azure'}",
+            "Do not translate '@azure'; it is syntax for addressing the Azure agent."
+        ]
+    }
+}

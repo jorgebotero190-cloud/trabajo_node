@@ -1,0 +1,8 @@
+schemaVersion: 0.0.1
+isProduction: true
+accountableOwners:
+  service: 658699af-c081-40c3-8bff-d6a058cb597d
+routing:
+  defaultAreaPath:
+    org: devdiv
+    path: OnlineServices\VS and VSCode Azure Copilot

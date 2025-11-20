@@ -1,0 +1,47 @@
+{
+	"name": "react-component",
+	"displayName": "React Component",
+	"description": "Create react component using ES6",
+	"icon": "images/react.png",
+	"version": "1.1.0",
+	"publisher": "jeremyrajan",
+	"bugs": {
+		"url": "https://github.com/jeremyrajan/vscode-exts/tree/master/react-component/issues"
+	},
+	"homepage": "https://github.com/jeremyrajan/vscode-exts/tree/master/react-component",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/jeremyrajan/vscode-exts/tree/master/react-component"
+	},
+	"engines": {
+		"vscode": "^1.7.0"
+	},
+	"categories": [
+		"Other",
+		"Snippets"
+	],
+	"activationEvents": [
+		"onCommand:extension.createComponent"
+	],
+	"main": "./out/src/extension",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.createComponent",
+				"title": "Create React Component"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "tsc -p ./",
+		"compile": "tsc -watch -p ./"
+	},
+	"dependencies": {
+		"prettier": "^1.19.1"
+	},
+	"__metadata": {
+		"installedTimestamp": 1761622083019,
+		"targetPlatform": "undefined",
+		"size": 9624867
+	}
+}

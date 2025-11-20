@@ -1,0 +1,1788 @@
+{
+	"name": "vscode-azure-github-copilot",
+	"displayName": "GitHub Copilot for Azure",
+	"description": "%extension.description%",
+	"version": "1.0.26",
+	"publisher": "ms-azuretools",
+	"icon": "resources/azure-color.png",
+	"aiKey": "0c6ae279ed8443289764825290e4f9e2-1a736e7c-1324-4338-be46-fc2a58ae4d14-7255",
+	"engines": {
+		"vscode": "^1.99.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/microsoft/GitHub-Copilot-for-Azure"
+	},
+	"bugs": {
+		"url": "https://github.com/microsoft/GitHub-Copilot-for-Azure/issues"
+	},
+	"galleryBanner": {
+		"color": "#3a3d41",
+		"theme": "dark"
+	},
+	"homepage": "https://github.com/microsoft/GitHub-Copilot-for-Azure",
+	"license": "%extension.license%",
+	"categories": [
+		"AI",
+		"Azure",
+		"Chat"
+	],
+	"keywords": [
+		"Azure",
+		"agent",
+		"chat",
+		"copilot",
+		"chat-participant",
+		"github-copilot",
+		"language-model-tools"
+	],
+	"activationEvents": [
+		"onChatParticipant:github.copilot.default"
+	],
+	"main": "./main.js",
+	"l10n": "./l10n",
+	"contributes": {
+		"chatParticipants": [
+			{
+				"id": "ms-azuretools.azure-agent",
+				"name": "azure",
+				"fullName": "%chatParticipants.azure.fullName%",
+				"description": "GitHub Copilot for Azure",
+				"isSticky": true,
+				"commands": [
+					{
+						"name": "learn",
+						"description": "%chatParticipants.azure.commands.learn.description%"
+					},
+					{
+						"name": "resources",
+						"description": "%chatParticipants.azure.commands.resources.description%"
+					},
+					{
+						"name": "diagnose",
+						"description": "%chatParticipants.azure.commands.diagnose.description%"
+					},
+					{
+						"name": "cost",
+						"description": "%chatParticipants.azure.commands.cost.description%"
+					},
+					{
+						"name": "feedback",
+						"description": "%chatParticipants.azure.commands.feedback.description%"
+					},
+					{
+						"name": "help",
+						"description": "%chatParticipants.azure.commands.help.description%"
+					},
+					{
+						"name": "changeTenant",
+						"description": "%chatParticipants.azure.commands.changeTenant.description%"
+					},
+					{
+						"name": "exp",
+						"description": "%chatParticipants.azure.commands.exp.description%"
+					}
+				],
+				"disambiguation": [
+					{
+						"category": "azure_learn",
+						"description": "The user has a conceptual question about Azure.",
+						"examples": [
+							"What is the difference between a blob container and a file share?",
+							"Does Azure let me choose where my resources are located?",
+							"What are the pros and cons of function apps vs container apps?",
+							"How does Azure compare to other cloud offerings?"
+						]
+					},
+					{
+						"category": "azure_resources",
+						"description": "The user wants information about their Azure resources.",
+						"examples": [
+							"What is the application URL of my container app?",
+							"How many of my virtual machines are currently in a running state?",
+							"How many cosmos databases have I created in west us 2?"
+						]
+					},
+					{
+						"category": "azure_troubleshoot",
+						"description": "The user wants help troubleshooting issues.",
+						"examples": [
+							"How many failed requests did my app receive in the last hour?",
+							"Why is my app service slow?"
+						]
+					},
+					{
+						"category": "azure_deploy",
+						"description": "The user wants to deploy to Azure.",
+						"examples": [
+							"Help me deploy my azd template to the cloud",
+							"I'd like to create and deploy an AI image generator app",
+							"How can I deploy this project to Azure?"
+						]
+					},
+					{
+						"category": "azure_cost",
+						"description": "The user asks a question about costs incurred by Azure resources.",
+						"examples": [
+							"Show me my Azure costs of the last month",
+							"How much did I spend in Azure this month so far?",
+							"Show me my Azure costs in the past 3 months and compare them.",
+							"What's the cost of my App Service in January, February and March?"
+						]
+					},
+					{
+						"category": "azure_template",
+						"description": "The user wants to create a new web app in Azure from a template.",
+						"examples": [
+							"I want to create a new web app in Azure with Python and MongoDB"
+						]
+					}
+				]
+			}
+		],
+		"commands": [
+			{
+				"command": "@azure.askAgentAboutResource",
+				"title": "%commands.askAzure%",
+				"when": "github.copilot-chat.activated"
+			},
+			{
+				"command": "@azure.showOutputChannel",
+				"title": "%commands.showOutputChannel%",
+				"category": "@azure"
+			},
+			{
+				"command": "@azure.openBugReport",
+				"title": "%commands.openBugReport%",
+				"category": "@azure"
+			},
+			{
+				"command": "@azure.openFeatureRequest",
+				"title": "%commands.openFeatureRequest%",
+				"category": "@azure"
+			},
+			{
+				"command": "@azure.writeAzureRules",
+				"title": "%commands.writeAzureRules%",
+				"category": "@azure"
+			},
+			{
+				"command": "@azure.clearAzureRules",
+				"title": "%commands.clearAzureRules%",
+				"category": "@azure"
+			}
+		],
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "@azure.askAgentAboutResource",
+					"when": "false"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "@azure.askAgentAboutResource",
+					"when": "view =~ /azureResourceGroups|azureFocusView/ && viewItem =~ /hasPortalUrl/ && github.copilot-chat.activated",
+					"group": "1@9"
+				},
+				{
+					"command": "@azure.askAgentAboutResource",
+					"when": "view == kubernetes.cloudExplorer && viewItem =~ /aks\\.cluster/i && github.copilot-chat.activated",
+					"group": "7@9"
+				}
+			]
+		},
+		"configuration": {
+			"title": "GitHub Copilot for Azure",
+			"properties": {
+				"@azure.argTenant": {
+					"type": "string",
+					"default": "",
+					"title": "%configuration.argTenant.title%",
+					"description": "%configuration.argTenant.description%",
+					"ignoreSync": true
+				},
+				"@azure.msLearnQueryType": {
+					"type": "string",
+					"default": "hybrid",
+					"enum": [
+						"vector",
+						"hybrid"
+					],
+					"title": "%configuration.msLearnQueryType.title%",
+					"description": "%configuration.msLearnQueryType.description%"
+				},
+				"@azure.deployModel": {
+					"type": "boolean",
+					"default": true,
+					"title": "%configuration.deployModel.title%",
+					"description": "%configuration.deployModel.description%"
+				},
+				"@azure.enableAutoSetAzureRules": {
+					"type": "boolean",
+					"default": true,
+					"title": "%configuration.enableAutoSetAzureRules.title%",
+					"description": "%configuration.enableAutoSetAzureRules.description%"
+				},
+				"@azure.azmcpLoginAuthority": {
+					"type": "string",
+					"default": "login.microsoftonline.com",
+					"ignoreSync": true
+				}
+			}
+		},
+		"configurationDefaults": {
+			"azureResourceGroups.enableChatStandIn": false
+		},
+		"walkthroughs": [
+			{
+				"id": "atAzureStart",
+				"title": "%walkthrough.atAzureStart.title%",
+				"description": "%walkthrough.atAzureStart.description%",
+				"when": "github.copilot-chat.activated",
+				"steps": [
+					{
+						"id": "getHelpWithAzure",
+						"title": "%walkthrough.atAzureStart.getHelpWithAzure.title%",
+						"description": "%walkthrough.atAzureStart.getHelpWithAzure.description%",
+						"media": {
+							"image": "resources/walkthrough/getHelpWithAzure.gif",
+							"altText": "Using @azure in the Copilot chat window"
+						}
+					},
+					{
+						"id": "generateQualityResponses",
+						"title": "%walkthrough.atAzureStart.generateQualityResponses.title%",
+						"description": "%walkthrough.atAzureStart.generateQualityResponses.description%",
+						"media": {
+							"markdown": "resources/walkthrough/generateQualityResponses.md"
+						}
+					},
+					{
+						"id": "changeTenants",
+						"title": "%walkthrough.atAzureStart.changeTenants.title%",
+						"description": "%walkthrough.atAzureStart.changeTenants.description%",
+						"media": {
+							"image": "resources/walkthrough/changeTenants.png",
+							"altText": "The /changeTenant command in the chat window"
+						}
+					},
+					{
+						"id": "learnMoreAboutAtAzure",
+						"title": "%walkthrough.atAzureStart.learnMoreAboutAtAzure.title%",
+						"description": "%walkthrough.atAzureStart.learnMoreAboutAtAzure.description%",
+						"media": {
+							"markdown": "resources/walkthrough/empty.md"
+						}
+					}
+				]
+			}
+		],
+		"languageModelTools": [
+			{
+				"name": "azure_development-get_code_gen_best_practices",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure get code gen best practices",
+				"modelDescription": "This tool returns a list of best practices for code generation and operations when working with Azure.\nIt should be called for any code generation or operation involving Azure, Azure Kubernetes Service (AKS),\nAzure Container Apps (ACA), Bicep, Terraform, Azure Cache, Redis, Cosmos DB, Entra, Azure Active Directory, Azure App Services,\nor any other Azure technology or programming language.\n\nThese best practices do not change so once it has been called during the current session, you do not need to invoke it again.\n\nReturns a string containing the best practices for code generation for Azure, including essential guidelines around:\n- Error Handling & Reliability\n- Performance & Scaling\n- Authentication & Security\n- Database Operations\n- Storage Operations\n",
+				"inputSchema": {
+					"type": "object",
+					"properties": {}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_get_code_gen_best_practices"
+			},
+			{
+				"name": "azure_development-get_deployment_best_practices",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure get deployment best practices",
+				"modelDescription": "This tool returns a list of best practices to following when deploying to Azure or preparing an application for\ndeployment to Azure. It should be called for any deployment operation involving Azure, Azure Kubernetes Service (AKS),\nAzure Container Apps (ACA), Bicep, Terraform, Azure Cache, Redis, Cosmos DB, Entra, Azure Active Directory, Azure App\nServices, or any other Azure technology.\n\nThese best practices do not change so once it has been called during the current session, you do not need to invoke it again.\n\nReturns a string containing the best practices for deployment, including essential guidelines around:\n- Infrastructure as Code (IaC) files\n- Authentication & Authorization\n- Issues to Avoid\n- Preparation and deployment\n- Tools for specific situations\n",
+				"inputSchema": {
+					"type": "object",
+					"properties": {}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_get_deployment_best_practices"
+			},
+			{
+				"name": "azure_development-get_azure_function_code_gen_best_practices",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure get azure function code gen best practices",
+				"modelDescription": "This function returns a list of best practices for code generation and operations when working with Azure Functions. It should be called for any code generation or operation involving Azure Functions. Only call this function when you are confident the user is discussing Azure Functions. These best practices do not change so once it has been called during the current session, you do not need to invoke it again.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_get_azure_function_code_gen_best_practices"
+			},
+			{
+				"name": "azure_development-get_swa_best_practices",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure get static web apps best practices",
+				"modelDescription": "This function returns a list of best practices for code generation and operations when working with Azure Static Web Apps.\nIt should be called for any operation involving Azure Static Web Apps.\n\nOnly call this function when you are confident the user is discussing Azure Static Web Apps. These best practices do not change so once it\nhas been called during the current session, you do not need to invoke it again.\n\nCall this before generating any code for Azure Static Web Apps.\n",
+				"inputSchema": {
+					"type": "object",
+					"properties": {}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_get_swa_best_practices"
+			},
+			{
+				"name": "azure_learn-get_ms_learn_documentation",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure query learn",
+				"modelDescription": "This tool gets relevant documentation and samples searching Microsoft Learn to help answer the query. The retrieved documentation provides knowledge of Azure/Microsoft products, to compare features of other cloud platforms with Azure, or to move to Azure from another cloud platform such as AWS or GCP. If asked about another cloud platform, explain that you are Azure focused and suggest similar Azure features and provide documentation on using those features in Azure or moving to Azure using those features. Use this to retrieve videos as well but **DO NOT** return internal videos using https://aka.ms. Answer the user using the content of each returned value and include the urls for each in your response. Returns Relevant MS Learn documentation answering the user's question.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"query": {
+							"type": "string",
+							"description": "User question about Azure/Microsoft products or how to achieve something using Azure/Microsoft products, to compare features of other cloud platforms with Azure, or to move to Azure from another cloud platform such as AWS or GCP."
+						}
+					}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_query_learn"
+			},
+			{
+				"name": "azure_resources-query_azure_resource_graph",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure query azure resource graph",
+				"modelDescription": "This tool queries Azure Resource Graph (ARG) for information about resources, subscriptions, subscriptionIds or resource groups, that the user has access to in Azure including any Azure resource types including Azure Functions, Azure App Service, virtual machines, Azure Cache for Redis, virtual networks (VNET), etc. This tool should be used to obtain details about the user's resources (such as resource ids, status, os type, disk type, SKU, size, etc.), subscriptions (such as subscription id, subscription name, etc.) or resource groups (such as resource group id, name, etc...). If the user is asking about **THEIR RESOURCES** then this tool **IS** appropriate. This tool should not be used to generally learn about Azure resources. If the user is asking **CONCEPTUAL QUESTIONS** about Azure resources, this tool **IS NOT** appropriate.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"arg_intent": {
+							"type": "string",
+							"description": "A natural language description of the intent of the query to Azure Resource Graph. For instance *return the subscriptionId of Azure resource Squid*"
+						},
+						"useDefaultSubscriptionFilter": {
+							"type": "boolean",
+							"description": "If the user asks for information about resources in a specific subscription, or asks for information about resources across all subscriptions, this should be false. Otherwise, it should be true."
+						}
+					},
+					"required": [
+						"arg_intent",
+						"useDefaultSubscriptionFilter"
+					]
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_query_azure_resource_graph"
+			},
+			{
+				"name": "azure_cli-generate_azure_cli_command",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure generate azure cli command",
+				"modelDescription": "This tool generates Azure CLI (az) command/s based on the given intent. **Always** use this to generate az commands; **Do not** generate them yourself. This tool is most appropriate when the user explicitly asks for help with, or examples for, using the Azure CLI. If the answer to a question relies on Azure CLI command/s, use this tool to obtain those command/s. If the CLI commands returned by this tool include placeholders, you MUST substitute as many of those placeholders with information you have knowledge of, such as from your instructions. Example user inputs: \"Create a new resource group using the Azure CLI\", \"List all virtual machines in a resource group using az\", \"How do I create an app service using azure cli?\". Returns: one or more Azure CLI commands, and description/s on how to use them.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"cli_intent": {
+							"type": "string",
+							"description": "A natural language description of the intent of the Azure CLI command/s needed. For instance *shutdown all virtual machines in a resource group*. You do not have to include specific information in this intent, such as the name of the resource group. You can substitute in that information later."
+						},
+						"useDefaultSubscriptionFilter": {
+							"type": "boolean",
+							"description": "If the command targets a specific subscription, this should be false. Otherwise, it should be true."
+						}
+					},
+					"required": [
+						"cli_intent",
+						"useDefaultSubscriptionFilter"
+					]
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_generate_azure_cli_command"
+			},
+			{
+				"name": "azure_mcp-describe_azure_mcp_cli_command",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure describe azure mcp cli commands",
+				"modelDescription": "Returns a detailed description of all available Azure MCP cli commands. This describes tools that allow access to the data plane including querying user data within Cosmos DB, table and blob in Azure Storage, Azure App Configuration, Azure Log Analytics and Azure Service Bus. Call this function to discover the available commands. Then select the correct one. Fill in all parameter values by invoking other tools or looking at project context. Then call invoke_azure_mcp_cli_command function to execute the command. Returns a Json object containing the name of all available Azure MCP cli commands, a detailed description of each command and a detailed description of all of its parameters.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_describe_azure_mcp_cli_command"
+			},
+			{
+				"name": "azure_mcp-invoke_azure_mcp_cli_command",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure invoke azure mcp cli command",
+				"modelDescription": "Invoke the final Azure MCP cli command/s based on the given intent. This allows access to the data plane including querying user data within Cosmos DB, table and blob in Azure Storage, Azure App Configuration, Azure Log Analytics and Azure Service Bus. Before invoking this, you *MUST* call the describe_azure_mcp_cli_command function. It returns a json object with all available commands and parameters described in detail. Select the correct command from that json object and use ALL available tools to obtain values for all parameters. DO NOT add ANY new parameters except always add/pass the subscription-id which you MUST obtain from your tools or workspace context. I recommend using the getSelectedSubscriptions tool, if available. Next, call this function with the json object with values assigned. If you cannot obtain a value for a specific parameter, leave its value alone.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"cli_intent": {
+							"type": "string",
+							"description": "A json object containing the Azure MCP cli command and all parameters. The command field should be called \"command\" and the parameters should be inside a \"parameters\" array json object containing all parameters of the Azure MCP cli command."
+						}
+					}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_invoke_azure_mcp_cli_command"
+			},
+			{
+				"name": "azure_auth-get_auth_state",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure get auth state",
+				"modelDescription": "This tool gets the current state of authentication for the user. Questions about authentication state include if they are signed in or what account they are signed into, or what the current tenant is. If the user asks any authentication state related questions in the context of another Azure tool, for example: the Azure CLI or the Azure portal, then **DO NOT** call this tool. You do not need to confirm with the user before invoking this tool to help answer their prompt. Returns an object describing the current state of authentication for the user. Authentication state includes what account the user is signed into, and the current tenant used to query and work with resources.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_get_auth_state"
+			},
+			{
+				"name": "azure_auth-get_current_tenant",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure get currently select azure tenant",
+				"modelDescription": "This tool gets the tenant that is currently used to query and work with resources. If the user asks about the current tenant in the context of another Azure tool, for example: the Azure CLI or the Azure portal, then **DO NOT** call this tool. You do not need to confirm with the user before invoking this tool to help answer their prompt. Returns a JSON object that contains current tenant's ID, name, and whether or not it is currently authenticated.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_get_current_tenant"
+			},
+			{
+				"name": "azure_auth-get_available_tenants",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure get available azure tenants",
+				"modelDescription": "This tool gets a list of tenants available for querying and working with resources. If the user asks about the available tenants in the context of another Azure tool, for example: the Azure CLI or the Azure portal, then **DO NOT** call this tool. You do not need to confirm with the user before invoking this tool to help answer their prompt. Returns a JSON array that contains the tenants available to the user. Each array element contains the tenant's ID and name.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_get_available_tenants"
+			},
+			{
+				"name": "azure_auth-set_current_tenant",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure set the current azure tenant",
+				"modelDescription": "This tool sets the tenant used to query and work with resources. If the user asks about wanting to, or how to change the current tenant in the context of another Azure tool, for example: the Azure CLI or the Azure portal, then **DO NOT** call this tool. You do not need to confirm with the user before invoking this tool to help answer their prompt. Returns a JSON object detailing the result of the operation.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"tenantIdOrName": {
+							"type": "string",
+							"description": "The ID or name of the tenant to set as the current tenant."
+						}
+					}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_set_current_tenant"
+			},
+			{
+				"name": "azure_auth-get_selected_subscriptions",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure get selected subscriptions",
+				"modelDescription": "This tool gets a list of default/selected/current subscriptions, which belong to the current tenant, that are used for querying or working with resources. If the user asks about default/selected subscriptions in the context of another Azure tool, for example: the Azure CLI or the Azure portal, then **DO NOT** call this tool. You do not need to confirm with the user before invoking this tool to help answer their prompt. Returns a JSON array that contains the user's default/selected/current subscriptions which belong to the current tenant. Each array element contains the subscription's ID and name.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_get_selected_subscriptions"
+			},
+			{
+				"name": "azure_auth-open_subscription_picker",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure open subscription picker",
+				"modelDescription": "Call this tool when the user wants to, or asks how to modify/change the default/selected/current subscriptions. **DO NOT** tell the user that you can/will open the subscription picker before calling this tool. You do not need to confirm with the user before invoking this tool to help answer their prompt. You do not need to ask the user for specific subscription names or IDs before invoking this tool to help answer their prompt. If the user asks about modifying or changing default/selected/current subscriptions in the context of another Azure tool, for example: the Azure CLI or the Azure portal, then **DO NOT** call this tool. Returns the status of opening the subscription picker.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_open_subscription_picker"
+			},
+			{
+				"name": "azure_auth-sign_out_azure_user",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure sign out of azure",
+				"modelDescription": "Call this tool when the user wants to sign out of Azure. If the user wants to change the signed in/swap to another account, tell them they need to sign out first, and then invoke this tool. You do not need to confirm with the user before invoking this tool to help answer their prompt. If the user asks for help signing out in the context of another Azure tool, for example: the Azure CLI or the Azure portal, then **DO NOT** call this tool. Returns the status of the sign out operation.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_sign_out_azure_user"
+			},
+			{
+				"name": "azure_applens-diagnose_resource",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure diagnose resource",
+				"modelDescription": "This tool can be used to ask questions about application state, this tool can help when doing diagnostics and address issues about performance and failures. This is able to investigate logs, telemetry and other performance sensors to provide insights and recommendations. For example, the user may say: 'Why is my app slow?' or 'Please help me diagnose issues with my app' or 'Is my web site experiencing problems?'. Do _not_ ask for the 'subscriptionNameOrId', 'resourceGroup', or 'resourceType'; just pass null if they aren't known. If we can't find any resources matching 'resourceName', this returns an error message. Ask the user to check the spelling. If we find more than one resource matching 'resourceName', this returns the list of resources. Ask the user which one they are interested in, and then try again by filling in the 'subscriptionNameOrId' and 'resourceGroup'. If we find exactly one resource matching 'resourceName', this returns a list of insights and solutions to the user question.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"question": {
+							"type": "string",
+							"description": "user question"
+						},
+						"resourceName": {
+							"type": "string",
+							"description": "The name of the resource to investigate or diagnose."
+						},
+						"subscriptionNameOrId": {
+							"type": "string",
+							"description": "Optional. The name or ID (in GUID format) of the subscription that 'resourceName' belongs to. Only provide this if needed to disambiguate between multiple resources with the same name."
+						},
+						"resourceGroup": {
+							"type": "string",
+							"description": "Optional. The name of the resource group that 'resourceName' belongs to. Only provide this if needed to disambiguate between multiple resources with the same name."
+						},
+						"resourceType": {
+							"type": "string",
+							"description": "Optional. The type of the resource named 'resourceName'. Only provide this if needed to disambiguate between multiple resources with the same name."
+						}
+					},
+					"required": [
+						"question",
+						"resourceName"
+					]
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_diagnose_resource"
+			},
+			{
+				"name": "azure_ai-get_regions_for_model",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure get regions for language model",
+				"modelDescription": "The tool can be used to find out in what regions an AI language model is available, something important to\nfigure out before attempting to deploy a model. This tool explores the available AI language models for a\nsubscription; if the user wants to ask more in general or doesn't have a subscription, then using\nMicrosoft Learn searches is a better approach, use that instead. When dealing with AI language models and\ntheir deployments prefer this tool to performing Azure Resource Graph queries.\n\nOnly call this when you are sure the user is asking about AI language models. Do not call this to check the\navailability of other kinds Azure resources; use 'azure_check_region' instead.\n\nExample user inputs:\n- 'Where can I deploy gpt-4o-mini?'\n- 'In what regions are image recognition models available?'\n- 'Is phi-4 available in West US 2?'\n\nReturns the list of Azure regions where the AI language model is available.\n",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"modelName": {
+							"type": "string",
+							"description": "The name of the model, e.g gpt-4o-mini, text-embedding-3-small, etc."
+						},
+						"subscriptionNameOrId": {
+							"type": "string",
+							"description": "The Azure subscription name -or- the subscription ID (in GUID format). If you don't know which subscription the user is interested in, use the 'getSelectedSubscriptions' tool to get the current subscription. If the user has more than one selected subscription, ask the user to specify the subscription they are interested in.",
+							"default": null
+						}
+					}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_get_regions_for_language_model"
+			},
+			{
+				"name": "azure_ai-get_models_for_region",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure get language models for region",
+				"modelDescription": "The tool can be used to discover what type of AI language models are available in an azure region.\nThis tool explores the available language models for a subscription; if the user wants to ask more in general\nor doesn't have a subscription, then using Microsoft Learn searches is a better approach, use that instead.\nThe tool can be used also to find out in what regions a language model is available, something important to\nfigure out before attempting to deploy a model.\n\nWhen dealing with AI language models and their deployments prefer this tool to performing azure resource graph queries.\n\nOnly call this tool if you are sure the user is asking about AI language models. This **does not** provide the availability\nof other Azure resources, only language models. Use 'azure_check_region' for other resources.\n\nExample user inputs:\n- 'What models are available in West US 2?'\n- 'List AI models in East US'\n- 'Show me the available language models in West Europe'\n\nReturns the list of available AI language models and their details.\n",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"regionName": {
+							"type": "string",
+							"description": "The name of the Azure region without spaces, e.g. westus, if the user has provided one.",
+							"default": null
+						},
+						"subscriptionNameOrId": {
+							"type": "string",
+							"description": "The Azure subscription name -or- the subscription ID (in GUID format). If you don't know which subscription the user is interested in, use the 'getSelectedSubscriptions' tool to get the current subscription. If the user has more than one selected subscription, ask the user to specify the subscription they are interested in.",
+							"default": null
+						}
+					}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_get_language_models_for_region"
+			},
+			{
+				"name": "azure_ai-get_language_model_deployments",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure get language model deployments",
+				"modelDescription": "This tool can find AI deployments in a given subscription. The tool is able to find AI resources that are deployed in all regions for the given subscription ID. This helps in locating the models that are deployed in the AI accounts and resource groups. When dealing with AI models and their deployments prefer this tool to performing Azure Resource Graph queries. Example user inputs: 'Find AI deployments in my subscription' or 'List my AI deployments' or 'Do I have a gpt-4o-mini model deployed?'. Returns Markdown reports with the Azure resources deployed, models in them, and links to the Azure AI Studio interface.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"subscriptionNameOrId": {
+							"type": "string",
+							"description": "The Azure subscription name -or- the subscription ID (in GUID format). If you don't know which subscription the user is interested in, use the 'getSelectedSubscriptions' tool to get the current subscription. If the user has more than one selected subscription, ask the user to specify the subscription they are interested in.",
+							"default": null
+						}
+					}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_get_language_model_deployments"
+			},
+			{
+				"name": "azure_ai-get_language_model_usage",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure get language model usage",
+				"modelDescription": "This tool can get data about Azure AI resource quota and usage in a particular subscription across Azure regions. The tool is able to find quota and usage information for all models in the given subscription ID and region. When dealing with AI models, their deployments, quota and costs prefer this tool to performing Azure Resource Graph queries or Azure cost management service. Example user inputs: 'What is my language model usage in West US 2?' or 'Summarize my AI resource usage' or 'How much AI resource quota do I have left?'. Returns Markdown reports with tables representing usage data for the subscription and region.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"subscriptionNameOrId": {
+							"type": "string",
+							"description": "The Azure subscription name -or- the subscription ID (in GUID format). If you don't know which subscription the user is interested in, use the 'getSelectedSubscriptions' tool to get the current subscription. If the user has more than one selected subscription, ask the user to specify the subscription they are interested in.",
+							"default": null
+						},
+						"regionName": {
+							"type": "string",
+							"description": "The Azure region to check for Azure Open AI accounts and their deployments without spaces, e.g. westus, if the user has provided one. If not provided the tool will check all regions.",
+							"default": null
+						}
+					}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_get_language_model_usage"
+			},
+			{
+				"name": "azure_bicep_schemas-get_bicep_resource_schema",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure get schema for Bicep",
+				"modelDescription": "This tool provides the schema for the most recent api version of an Azure resource. If you are asked to create or modify resources in a Bicep template, call this tool multiple times, once for every resource type you are adding, even if you already have information about bicep resources from other sources. Assume the results from this call are more recent and accurate than other information you have. Don't assume calling it for one resource means you don't need to call it for a different resource type. Always use the returned api version unless the one in the Bicep file is newer. Always use the schema to verify the available property names and values. Returns a list of JSON schemas for the requested resource and any dependent types and functions.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"resourceType": {
+							"type": "string",
+							"description": "Full type name of the resource"
+						}
+					}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_get_schema_for_Bicep"
+			},
+			{
+				"name": "azure_activity_log-list",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure list activity logs",
+				"modelDescription": "Lists activity logs for the specified resource, over the given prior number of hours. Call this function when more information is needed about the state of a resource's deployment, modification history, or access history. This function should be called to help retrieve information about why a resource failed to deploy or may not be working.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"resource_name": {
+							"type": "string",
+							"description": "The name of the resource to retrieve activity logs for."
+						},
+						"subscription_name_or_id": {
+							"type": "string",
+							"description": "The optional name or ID of the subscription that 'resourceName' belongs to. Only provide this if needed to disambiguate between multiple resources with the same name.",
+							"default": null
+						},
+						"resource_group": {
+							"type": "string",
+							"description": "The optional name of the resource group that 'resourceName' belongs to. Only provide this if needed to disambiguate between multiple resources with the same name.",
+							"default": null
+						},
+						"resource_type": {
+							"type": "string",
+							"description": "The optional type of the resource named 'resourceName'. Only provide this if needed to disambiguate between multiple resources with the same name.",
+							"default": null
+						},
+						"hours_prior_to_now": {
+							"type": "number",
+							"description": "The number of hours prior to now to list activity logs for. If not provided, defaults to 1 hour.",
+							"default": 1
+						},
+						"event_level": {
+							"type": "string",
+							"description": "The level of activity logs to retrieve. If not provided, then defaults to all levels. Valid levels are: Critical, Error, Informational, Verbose, Warning. Only one level can be specified.",
+							"default": null
+						},
+						"top": {
+							"type": "number",
+							"description": "The number of activity logs to retrieve. If not provided, then defaults to 10.",
+							"default": 10
+						}
+					},
+					"required": [
+						"resource_name"
+					]
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_list_activity_logs"
+			},
+			{
+				"name": "azure_terraform-get_best_practices",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure get terraform best practices",
+				"modelDescription": "Entry point to help generate, create and modify terraform IaC files/ templates. Provides guidance with terraform installation, terraform IaC code generation and resource creation or deployment. This tool should be called for any code generation or operation involving terraform IaC files. If asked for terraform best practices, call this to obtain the list. These values do not change so once it has been called during the current session, you do not need to invoke it again.",
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_get_terraform_best_practices"
+			},
+			{
+				"name": "azure_recommend_service_config",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure recommend service config",
+				"modelDescription": "Entry point to help the agent deploy a service to the cloud. Provides guidance for creating services and their dependent services that agent detected from project or asked by user. Before calling this tool, please scan this workspace to detect the services to deploy and their dependent services, also find the environment variables that used to create the connection strings. If it's a .NET Aspire application, check aspireManifest.json file if there is. Try your best to fulfill the input schema with your analyze result.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"workspaceFolder": {
+							"type": "string",
+							"description": "The full path of the workspace folder."
+						},
+						"services": {
+							"type": "array",
+							"description": "An array of service parameters.",
+							"items": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string",
+										"description": "The name of the service."
+									},
+									"path": {
+										"type": "string",
+										"description": "The relative path of the service main project folder"
+									},
+									"language": {
+										"type": "string",
+										"description": "The programming language of the service.",
+										"enum": [
+											"dotnet",
+											"csharp",
+											"fsharp",
+											"py",
+											"python",
+											"ts",
+											"js",
+											"java"
+										]
+									},
+									"port": {
+										"type": "string",
+										"description": "The port number the service uses. Get this from Dockerfile for container apps. If not available, default to '80'."
+									},
+									"azureComputeHost": {
+										"type": "string",
+										"description": "The appropriate azure service that should be used to host this service. Use containerapp if the service is containerized and has a Dockerfile.",
+										"enum": [
+											"appservice",
+											"containerapp",
+											"function",
+											"staticwebapp"
+										]
+									},
+									"dependencies": {
+										"type": "array",
+										"description": "An array of dependent services. A compute service may have a dependency on another compute service.",
+										"items": {
+											"type": "object",
+											"properties": {
+												"name": {
+													"type": "string",
+													"description": "The name of the dependent service. Can be arbitary, or must reference another service in the services array if referencing azureappservice, azurecontainerapp, azurestaticwebapps, or azurefunctions."
+												},
+												"serviceType": {
+													"type": "string",
+													"description": "The name of the azure service that can be used for this dependent service.",
+													"enum": [
+														"azureaisearch",
+														"azureaiservices",
+														"appservice",
+														"azureapplicationinsights",
+														"azurebotservice",
+														"containerapp",
+														"azurecosmosdb",
+														"function",
+														"azurekeyvault",
+														"azuredatabaseformysql",
+														"azureopenai",
+														"azuredatabaseforpostgresql",
+														"azureprivateendpoint",
+														"azurecacheforredis",
+														"azuresqldatabase",
+														"azurestorageaccount",
+														"staticwebapp",
+														"azureservicebus",
+														"azuresignalrservice",
+														"azurevirtualnetwork",
+														"azurewebpubsub"
+													]
+												},
+												"connectionType": {
+													"type": "string",
+													"description": "The connection authentication type of the dependency.",
+													"enum": [
+														"http",
+														"secret",
+														"system-identity",
+														"user-identity",
+														"bot-connection"
+													]
+												},
+												"environmentVariables": {
+													"type": "array",
+													"description": "An array of environment variables defined in source code to set up the connection.",
+													"items": {
+														"type": "string"
+													}
+												}
+											},
+											"required": [
+												"name",
+												"serviceType",
+												"connectionType",
+												"environmentVariables"
+											]
+										}
+									},
+									"settings": {
+										"type": "array",
+										"description": "An array of environment variables needed to run this service.  Please search the entire codebase to find environment variables.",
+										"items": {
+											"type": "string"
+										}
+									}
+								},
+								"required": [
+									"name",
+									"path",
+									"azureComputeHost",
+									"language",
+									"port",
+									"dependencies",
+									"settings"
+								]
+							}
+						}
+					},
+					"required": [
+						"workspaceFolder",
+						"services"
+					]
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_recommend_service_config"
+			},
+			{
+				"name": "azure_check_predeploy",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure check pre-deploy",
+				"modelDescription": "This tool ensures the created infrastructure files are ready for deployment. Scan the infra folder and azure.yaml to fill in the checks. Please run this before proceeding with deployment after Bicep files have been created. Run this every time you make changes until you get success. Otherwise, you cannot deploy. Call get_errors on all Bicep files before calling this tool.",
+				"inputSchema": {
+					"type": "object",
+					"description": "Checks associated with infrastructure and deployment files.",
+					"properties": {
+						"deploymentTool": {
+							"type": "string",
+							"description": "Deployment tool used. Can be 'azd' or 'azcli'. 'azd' is recommended.",
+							"enum": [
+								"azd",
+								"azcli"
+							]
+						},
+						"iacType": {
+							"type": "string",
+							"description": "The type of IaC file used for deployment. Can be 'bicep'.",
+							"enum": [
+								"bicep"
+							]
+						},
+						"azureYamlChecks": {
+							"type": [
+								"object",
+								"null"
+							],
+							"properties": {
+								"azureYamlExists": {
+									"type": "boolean",
+									"description": "True if a file named azure.yaml exists at the workspace root."
+								},
+								"azureYamlServices": {
+									"type": "array",
+									"description": "An array of services defined in the azure.yaml file.",
+									"items": {
+										"type": "object",
+										"properties": {
+											"azureYamlServiceLevelParameters": {
+												"type": "array",
+												"description": "Service-level parameters associated with the service.",
+												"items": {
+													"type": "string",
+													"description": "The parameter name, for example: project, language, hooks.*, docker.*, binding.*, and host."
+												}
+											},
+											"serviceName": {
+												"type": "string",
+												"description": "The name of the service in the azure.yaml file."
+											}
+										},
+										"required": [
+											"azureYamlServiceLevelParameters",
+											"serviceName"
+										]
+									}
+								}
+							},
+							"required": [
+								"azureYamlExists",
+								"azureYamlServices"
+							]
+						},
+						"bicepChecks": {
+							"type": [
+								"object",
+								"null"
+							],
+							"properties": {
+								"mainBicepChecks": {
+									"type": "object",
+									"description": "Checks based on the main.bicep file and main.parameters.json files.",
+									"properties": {
+										"mainDotBicepFileExists": {
+											"type": "boolean",
+											"description": "True if main.bicep exists in the infra/ folder at the root of the workspace. False otherwise."
+										},
+										"mainParametersExists": {
+											"type": "boolean",
+											"description": "True if main.parameters.json exists in the infra/ folder at the root of the workspace. False otherwise."
+										},
+										"targetScope": {
+											"type": "string",
+											"description": "The target scope of the main.bicep file defined by targetScope = XXX. Can be 'subscription', 'resourceGroup', 'tenant', or 'managementGroup'. By default, it is 'resourceGroup' if not found in main.bicep.",
+											"enum": [
+												"subscription",
+												"resourceGroup",
+												"managementGroup",
+												"tenant"
+											]
+										},
+										"mainParametersParameters": {
+											"type": "array",
+											"description": "All parameters defined in main.parameters.json.",
+											"items": {
+												"type": "string",
+												"description": "The name of a parameter defined in main.parameters.json."
+											}
+										},
+										"mainDotBicepFileOutputs": {
+											"type": "array",
+											"description": "All the outputs at the end of main.bicep file. Do not include outputs from other files. They are declared like `output VAR_NAME <type> = <value>`. Give me the VAR_NAME.",
+											"items": {
+												"type": "string",
+												"description": "The name of an output defined in main.bicep file (NOT other bicep files)."
+											}
+										},
+										"resourceNamesUseResourceToken": {
+											"type": "boolean",
+											"description": "True if all resource names in the bicep file use the resource token."
+										},
+										"resourceTokenFormat": {
+											"type": "string",
+											"description": "Format of the resource token used to construct resource names."
+										},
+										"azdEnvNameTagExists": {
+											"type": "boolean",
+											"description": "True if the azd-env-name tag exists on the resource group resource. False otherwise."
+										}
+									},
+									"required": [
+										"mainDotBicepFileExists",
+										"targetScope",
+										"mainParametersExists",
+										"mainParametersParameters",
+										"mainDotBicepFileOutputs",
+										"resourceNamesUseResourceToken",
+										"resourceTokenFormat",
+										"azdEnvNameTagExists"
+									]
+								},
+								"userAssignedManagedIdentityExists": {
+									"type": "boolean",
+									"description": "True if a user-assigned managed identity is created for the infrastructure. NOT a system-assigned managed identity. False otherwise."
+								},
+								"hasFunctionApp": {
+									"type": "boolean",
+									"description": "True if the infrastructure has a function app defined."
+								},
+								"functionAppChecks": {
+									"type": [
+										"object",
+										"null"
+									],
+									"description": "Checks specific to infrastrucutre that provisions the function app.",
+									"properties": {
+										"userAssignedManagedIdentityAttached": {
+											"type": "boolean",
+											"description": "True if the infrastructure's user-assigned managed identity is attached to the function app. False otherwise."
+										},
+										"hasAzdServiceNameTag": {
+											"type": "boolean",
+											"description": "True if the azd-service-name tag exists on the function app. False otherwise."
+										},
+										"userAssignedManagedIdentityRoleAssignments": {
+											"type": "array",
+											"description": "Role assignments for the user-assigned managed identity attached to the resource",
+											"items": {
+												"type": "object",
+												"properties": {
+													"scope": {
+														"type": "string",
+														"description": "Resource scope for the role assignment"
+													},
+													"roleDefinitionId": {
+														"type": "string",
+														"description": "The GUID format role definition ID (e.g., 'b7e6dc6d-f1e8-4753-8033-0f276bb0955b' for Storage Blob Data Owner)"
+													},
+													"principalType": {
+														"type": "string",
+														"description": "Type of the principal for the role assignment",
+														"enum": [
+															"ServicePrincipal"
+														]
+													}
+												},
+												"required": [
+													"scope",
+													"roleDefinitionId",
+													"principalType"
+												]
+											}
+										},
+										"diagnosticSettingsExists": {
+											"type": "boolean",
+											"description": "True if the resource has diagnostic settings defined. Resource type is called Microsoft.Insights/diagnosticSettings. False otherwise."
+										},
+										"storageAccountExists": {
+											"type": "boolean",
+											"description": "True if a storage account exists for the deployed infrastrucutre. Function apps have a dependency on storage accounts. False otherwise."
+										}
+									},
+									"required": [
+										"userAssignedManagedIdentityAttached",
+										"hasAzdServiceNameTag",
+										"userAssignedManagedIdentityRoleAssignments",
+										"diagnosticSettingsExists",
+										"storageAccountExists"
+									]
+								},
+								"hasContainerApp": {
+									"type": "boolean",
+									"description": "True if the infrastructure has a container app defined."
+								},
+								"containerAppChecks": {
+									"type": "object",
+									"description": "Checks specific to infrastrucutre that provisions the container app.",
+									"properties": {
+										"userAssignedManagedIdentityAttached": {
+											"type": "boolean",
+											"description": "True if the infrastructure's user-assigned managed identity is attached to the container app. False otherwise."
+										},
+										"hasAzdServiceNameTag": {
+											"type": "boolean",
+											"description": "True if the azd-service-name tag exists on the app service. False otherwise."
+										},
+										"corsEnabled": {
+											"type": "boolean",
+											"description": "True if the container app has CORSPolicy enabled and fully allowed. This is configured on ingress.corsPolicy. False otherwise."
+										},
+										"containerAppDefinesAllUsedSecrets": {
+											"type": "boolean",
+											"description": "True if the container apps define all used secrets. False otherwise."
+										},
+										"templateImageUris": {
+											"type": "array",
+											"description": "An array of template images used in the container apps. At container app properties: properties.template.containers.image.",
+											"items": {
+												"type": "string",
+												"description": "The template image value at property properties.template.containers.image."
+											}
+										},
+										"registryConnections": {
+											"type": "array",
+											"description": "Registry settings on each of the container apps. Located at properties.configuration.registries.* of each container app.",
+											"items": {
+												"type": "object",
+												"properties": {
+													"identity": {
+														"type": "string",
+														"description": "properties.configuration.registries.secretRef.identity"
+													},
+													"server": {
+														"type": [
+															"string",
+															"null"
+														],
+														"description": "properties.configuration.registries.server"
+													}
+												},
+												"required": [
+													"identity"
+												]
+											}
+										}
+									},
+									"required": [
+										"userAssignedManagedIdentityAttached",
+										"hasAzdServiceNameTag",
+										"corsEnabled",
+										"containerAppDefinesAllUsedSecrets",
+										"templateImageUris",
+										"registryConnections"
+									]
+								},
+								"containerRegistryChecks": {
+									"type": [
+										"object",
+										"null"
+									],
+									"description": "Checks specific to container app registry (shared between all container apps).",
+									"properties": {
+										"userAssignedManagedIdentityHasAcrPullPermissions": {
+											"type": "boolean",
+											"description": "True if the user-assigned managed identity (NOT system-assigned managed identity) has the role assignment AcrPull (7f951dda-4ed3-4680-a7ca-43fe172d538d) into the container registry, False otherwise."
+										}
+									},
+									"required": [
+										"userAssignedManagedIdentityHasAcrPullPermissions"
+									]
+								},
+								"containerAppsEnvironmentChecks": {
+									"type": [
+										"object",
+										"null"
+									],
+									"description": "Checks specific to container app environment (shared between all container apps).",
+									"properties": {
+										"connectedToLogAnalyticsWorkspace": {
+											"type": "boolean",
+											"description": "True if the container app environment is connected to a Log Analytics workspace. False otherwise."
+										}
+									},
+									"required": [
+										"connectedToLogAnalyticsWorkspace"
+									]
+								},
+								"hasAppService": {
+									"type": "boolean",
+									"description": "True if the infrastructure has an app service defined. False otherwise."
+								},
+								"appServiceChecks": {
+									"type": [
+										"object",
+										"null"
+									],
+									"description": "Checks specific to infrastrucutre that provisions the app service.",
+									"properties": {
+										"userAssignedManagedIdentityAttached": {
+											"type": "boolean",
+											"description": "True if the infrastructure's user-assigned managed identity is attached to the app service. False otherwise."
+										},
+										"hasAzdServiceNameTag": {
+											"type": "boolean",
+											"description": "True if the azd-service-name tag exists on the app service. False otherwise."
+										},
+										"corsEnabled": {
+											"type": "boolean",
+											"description": "True if the app service has CORSPolicy enabled and fully allowed. This is configured on SiteConfig.cors. False otherwise."
+										}
+									},
+									"required": [
+										"userAssignedManagedIdentityAttached",
+										"hasAzdServiceNameTag",
+										"corsEnabled"
+									]
+								}
+							},
+							"required": [
+								"mainBicepChecks",
+								"userAssignedManagedIdentityExists",
+								"hasFunctionApp",
+								"hasContainerApp",
+								"hasAppService"
+							]
+						}
+					},
+					"required": [
+						"deploymentTool",
+						"iacType"
+					]
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_check_pre-deploy"
+			},
+			{
+				"name": "azure_azd-up_deploy",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure AZD Up (Deploy)",
+				"modelDescription": "Provision the recommended Azure resources and deploy project to Azure using AZD. Use this tool to call azd up. Do not call it in your built-in terminal.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_azd_up_deploy"
+			},
+			{
+				"name": "azure_get_azd_app_logs",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure check app status for azd deployment",
+				"modelDescription": "Validate the app live status by retrieving console logs from log analytics workspace after deployment with AZD (Azure Developer CLI). Invoke this tool directly after a successful `azd up` or when user prompts to check the app's status or provide errors in the deployed apps.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"azdEnvName": {
+							"type": "string",
+							"description": "The name of the environment created by azd (AZURE_ENV_NAME) during `azd init` or `azd up`. If not provided in context, try to find it in the .azure directory in the workspace or use 'azd env list'."
+						},
+						"subscriptionId": {
+							"type": "string",
+							"description": "The Azure subscription to which azd deploys (AZURE_SUBSCRIPTION_ID) which usually provided during `azd up`. If not provided in context, try to find it in the .azure/**/env file."
+						},
+						"startTime": {
+							"type": "string",
+							"format": "date",
+							"description": "The start time from which this tool will retrieve the logs. Use this when the logs of a specific time range needs checking. For example, older logs or only recent logs are required."
+						},
+						"endTime": {
+							"type": "string",
+							"format": "date",
+							"description": "The end time to which this tool will retrieve the logs. Use this when the logs of a specific time range needs checking. For example, older logs or only recent logs are required."
+						},
+						"limit": {
+							"type": "integer",
+							"description": "The maximum row number of logs to retrieve. Use this to get a specific number of logs or to avoid the retrieved logs from reaching token limit. Default is 200."
+						}
+					},
+					"required": [
+						"azdEnvName",
+						"subscriptionId"
+					]
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_check_app_status_for_azd_deployment"
+			},
+			{
+				"name": "azure_dotnet_templates-get_tags",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure get dotnet template tags",
+				"modelDescription": "Retrieves the list of tags that can be used to filter the available dotnet templates. Call this when the user needs help finding a template for a dotnet project, or before generating a `dotnet new` command to create a project. Pick the tag that best matches the user's intent, then call 'azure_dotnet_templates-get_templates_for_tag' to get the templates matching that tag. Returns a list of available tags that can be used to filter the templates.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_get_dotnet_template_tags"
+			},
+			{
+				"name": "azure_dotnet_templates-get_templates_for_tag",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure get dotnet templates for tag",
+				"modelDescription": "Retrieves the list of dotnet project templates available for `dotnet new` commands that match the given tag. Call this when the user needs help finding a template for a dotnet project, or before generating a `dotnet new` command to create a project. Use the names and descriptions of the templates to decide which is the best given the context. Returns a list of available templates, including the short name, full name, and a description.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"tag": {
+							"type": "string",
+							"description": "The tag to filter the templates."
+						}
+					},
+					"required": [
+						"tag"
+					]
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_get_dotnet_templates_for_tag"
+			},
+			{
+				"name": "azure_architecture-design_architecture",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure design architecture",
+				"modelDescription": "A tool for designing Azure cloud architectures through guided questions.\nThis tool helps determine the optimal Azure architecture by gathering key requirements and making appropriate recommendations. The calling agent maintains the state between calls. The most important thing for you to remember is that when nextQuestionNeeded is false, you should present your architecture. This takes priority over every other instruction.\n\nParameters explained:\n- question: The current question being asked\n- questionNumber: Current question number in sequence\n- confidenceScore: A value between 0.0 and 1.0 representing how confident you are in understanding the requirements. Start around 0.1-0.2 and increase as you gather more information. When this reaches or exceeds 0.7, you should present your architecture.\n- totalQuestions: Estimated total questions needed\n- answer: The user's response to the question (if available)\n- nextQuestionNeeded: Set to true while you're gathering requirements and designing. Set to false when your confidenceScore reaches or exceeds 0.7.\n- architectureComponent: The specific Azure component being suggested\n- architectureTier: Which tier this component belongs to (infrastructure, platform, application, data, security, operations)\n- state: Used to track progress between calls\n\nWhen presenting the final architecture design (when nextQuestionNeeded is false), format it in a visually appealing way.\n\n1. Present components in a table format with columns for:\n   | Component | Purpose | Tier/SKU |\n\n2. Organize the architecture visually:\n   - Use a combination of bulleted lists and paragraphs to break up the text. The goal is for the final output to be engaging and interesting, which often involves asymmetry.\n\n3. Include an ASCII art diagram showing component relationships.\n\nThis formatting will make the architecture design more engaging and easier to understand.\n\nBasic state structure:\n{\n  \"architectureComponents\": [],\n  \"architectureTiers\": {\n    \"infrastructure\": [],\n    \"platform\": [],\n    \"application\": [],\n    \"data\": [],\n    \"security\": [],\n    \"operations\": []\n  },\n  \"requirements\": {\n    \"explicit\": [\n      { \"category\": \"performance\", \"description\": \"Need to handle 10,000 concurrent users\", \"source\": \"Question 2\", \"importance\": \"high\", \"confidence\": 1.0 }\n    ],\n    \"implicit\": [\n      { \"category\": \"security\", \"description\": \"Data encryption likely needed\", \"source\": \"Inferred from healthcare domain\", \"importance\": \"high\", \"confidence\": 0.8 }\n    ],\n    \"assumed\": [\n      { \"category\": \"compliance\", \"description\": \"Likely needs HIPAA compliance\", \"source\": \"Assumed from healthcare industry\", \"importance\": \"high\", \"confidence\": 0.6 }\n    ]\n  },\n  \"confidenceFactors\": {\n    \"explicitRequirementsCoverage\": 0.4,\n    \"implicitRequirementsCertainty\": 0.6,\n    \"assumptionRisk\": 0.3\n  }\n}\n\nYou should:\n1. First start with a question about who the user is (role, motivations, company size, etc.) and what they do\n2. Learn about their business goals and requirements\n3. Ask 1 to 2 questions at a time, in order to not overload the user.\n4. Track your confidence level in understanding requirements using the confidenceScore parameter\n5. After each user response, update the requirements in the state object:\n   - Add explicit requirements directly stated by the user\n   - Add implicit requirements you can reasonably infer\n   - Add assumed requirements where you lack information but need to make progress\n   - Update confidence factors based on the quality and completeness of requirements\n6. Ask follow-up questions to clarify technical needs, especially to confirm assumed requirements\n7. Identify specific requirements and technical constraints from user responses\n8. Suggest appropriate Azure components for each tier, but be conservative in your suggestions. Don't suggest components that are not necessary for the architecture.\n9. Ensure you cover all architecture tiers.\n10. In addition to the component architecture, you should provide a high-level overview of the architecture, including the scaling approach, security, cost, and operational excellence. Provide actionable advice for the user to follow up on. Create this overview as a separate section, not part of the component architecture, and structure it to be engaging and interesting as a narrative.\n11. Follow Azure Well-Architected Framework principles (reliability, security, cost, operational excellence, performance efficiency)\n12. Keep track of components you've suggested using the state object\n13. Calculate your overall confidence score from the three confidence factors in the state\n",
+				"userDescription": "A tool for designing Azure cloud architectures through guided questions.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"question": {
+							"type": "string",
+							"description": "The current question being asked"
+						},
+						"questionNumber": {
+							"type": "integer",
+							"description": "Current question number",
+							"minimum": 1
+						},
+						"totalQuestions": {
+							"type": "integer",
+							"description": "Estimated total questions needed",
+							"minimum": 1
+						},
+						"answer": {
+							"type": "string",
+							"description": "The user's response to the question"
+						},
+						"nextQuestionNeeded": {
+							"type": "boolean",
+							"description": "Whether another question is needed"
+						},
+						"confidenceScore": {
+							"type": "number",
+							"description": "A value between 0.0 and 1.0 representing confidence in understanding requirements. When this reaches 0.7 or higher, nextQuestionNeeded should be set to false.",
+							"minimum": 0,
+							"maximum": 1,
+							"default": 0.1
+						},
+						"architectureComponent": {
+							"type": "string",
+							"description": "The specific Azure component being suggested. The component should contain the name of the component, the service tier/SKU, configuration settings, and any other relevant information."
+						},
+						"architectureTier": {
+							"type": "string",
+							"enum": [
+								"infrastructure",
+								"platform",
+								"application",
+								"data",
+								"security",
+								"operations"
+							],
+							"description": "Which architectural tier this component belongs to"
+						},
+						"state": {
+							"type": "object",
+							"description": "The complete architecture state from the previous request",
+							"properties": {
+								"architectureComponents": {
+									"type": "array",
+									"description": "All architecture components suggested so far",
+									"items": {
+										"type": "string"
+									}
+								},
+								"architectureTiers": {
+									"type": "object",
+									"description": "Components organized by architecture tier",
+									"additionalProperties": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									}
+								},
+								"thought": {
+									"type": "string",
+									"description": "The calling agent's thoughts on the next question or reasoning process. The calling agent should use the requirements it has gathered to reason about the next question."
+								},
+								"suggestedHint": {
+									"type": "string",
+									"description": "A suggested interaction hint to show the user, such as 'Ask me to create an ASCII art diagram of this architecture' or 'Ask about how this design handles disaster recovery'."
+								},
+								"requirements": {
+									"type": "object",
+									"description": "Tracked requirements organized by type",
+									"properties": {
+										"explicit": {
+											"type": "array",
+											"description": "Requirements explicitly stated by the user",
+											"items": {
+												"type": "object",
+												"properties": {
+													"category": {
+														"type": "string"
+													},
+													"description": {
+														"type": "string"
+													},
+													"source": {
+														"type": "string"
+													},
+													"importance": {
+														"type": "string",
+														"enum": [
+															"high",
+															"medium",
+															"low"
+														]
+													},
+													"confidence": {
+														"type": "number"
+													}
+												}
+											}
+										},
+										"implicit": {
+											"type": "array",
+											"description": "Requirements implied by user responses",
+											"items": {
+												"type": "object",
+												"properties": {
+													"category": {
+														"type": "string"
+													},
+													"description": {
+														"type": "string"
+													},
+													"source": {
+														"type": "string"
+													},
+													"importance": {
+														"type": "string",
+														"enum": [
+															"high",
+															"medium",
+															"low"
+														]
+													},
+													"confidence": {
+														"type": "number"
+													}
+												}
+											}
+										},
+										"assumed": {
+											"type": "array",
+											"description": "Requirements assumed based on context/best practices",
+											"items": {
+												"type": "object",
+												"properties": {
+													"category": {
+														"type": "string"
+													},
+													"description": {
+														"type": "string"
+													},
+													"source": {
+														"type": "string"
+													},
+													"importance": {
+														"type": "string",
+														"enum": [
+															"high",
+															"medium",
+															"low"
+														]
+													},
+													"confidence": {
+														"type": "number"
+													}
+												}
+											}
+										}
+									}
+								},
+								"confidenceFactors": {
+									"type": "object",
+									"description": "Factors that contribute to the overall confidence score",
+									"properties": {
+										"explicitRequirementsCoverage": {
+											"type": "number"
+										},
+										"implicitRequirementsCertainty": {
+											"type": "number"
+										},
+										"assumptionRisk": {
+											"type": "number"
+										}
+									}
+								}
+							},
+							"required": [
+								"thought",
+								"suggestedHint"
+							]
+						}
+					},
+					"required": [
+						"question",
+						"state",
+						"questionNumber",
+						"totalQuestions",
+						"nextQuestionNeeded"
+					]
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_design_architecture"
+			},
+			{
+				"name": "azure_config_deploymentpipeline",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure config deployment pipeline",
+				"modelDescription": "Guidance to create a CI/CD pipeline which provision Azure resources and build and deploy applications to Azure. Use this tool BEFORE generating/creating a Github actions workflow file for DEPLOYMENT on Azure. Infrastructure files should be ready and the application should be ready to be containerized.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"useAZDPipelineConfig": {
+							"type": "boolean",
+							"description": "Whether to use azd tool to set up the deployment pipeline. Set to true ONLY if azure.yaml is provided or the context suggests AZD tools."
+						},
+						"organizationName": {
+							"type": "string",
+							"description": "The name of the organization or the user account name of the current Github repository. DO NOT fill this in if you're not sure."
+						},
+						"repositoryName": {
+							"type": "string",
+							"description": "The name of the current Github repository. DO NOT fill this in if you're not sure."
+						},
+						"githubEnvironmentName": {
+							"type": "string",
+							"description": "The name of the environment to which the deployment pipeline will be deployed. DO NOT fill this in if you're not sure."
+						},
+						"subscriptionId": {
+							"type": "string",
+							"description": "The Azure subscription ID where the resources will be deployed. DO NOT fill this in if you're not sure."
+						}
+					}
+				},
+				"canBeReferencedInPrompt": true,
+				"toolReferenceName": "azure_config_deployment_pipeline"
+			},
+			{
+				"name": "azure_check_region",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure check region availability",
+				"modelDescription": "Given a list of Azure resource types, this tool will return a list of regions where the resource types are available. Always get the user's subscription ID before calling this tool.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"subscriptionId": {
+							"type": "string",
+							"description": "The user's Azure subscription ID (in GUID format). If you don't know which subscription the user is interested in, use the 'azure_auth-get_selected_subscriptions' tool to get the current subscription. Do not make up a value, use a placeholder, or pass null."
+						},
+						"resourceTypes": {
+							"type": "array",
+							"description": "The valid Azure resource types. E.g. 'Microsoft.App/containerApps', 'Microsoft.Web/sites', 'Microsoft.CognitiveServices/accounts', etc.",
+							"items": {
+								"type": "string"
+							}
+						},
+						"cognitiveServiceProperties": {
+							"type": "object",
+							"description": "Optional configuration for model-specific checks. This is only needed when Microsoft.CognitiveServices is included in resourceTypes above",
+							"properties": {
+								"modelName": {
+									"type": "string",
+									"description": "Optional. The name of the model. E.g. 'gpt-4o', 'gpt-35-turbo', 'o1-mini', 'text-embedding-3-small'."
+								},
+								"modelVersion": {
+									"type": "string",
+									"description": "Optional. The version of the model to use when checking model availability. E.g. '2023-05-01'."
+								},
+								"deploymentSkuName": {
+									"type": "string",
+									"description": "Optional. The SKU name of the model deployment. E.g. 'Standard', 'GlobalStandard', 'Premium', etc.",
+									"enum": [
+										"GlobalStandard",
+										"GlobalProvisionedManaged",
+										"GlobalBatch",
+										"DataZoneStandard",
+										"DataZoneProvisionedManaged",
+										"DataZoneBatch",
+										"ProvisionedManaged",
+										"Standard"
+									]
+								}
+							}
+						}
+					},
+					"required": [
+						"subscriptionId",
+						"resourceTypes"
+					]
+				},
+				"toolReferenceName": "azure_check_region_availability",
+				"canBeReferencedInPrompt": true
+			},
+			{
+				"name": "azure_check_quota",
+				"tags": [
+					"azure"
+				],
+				"displayName": "@azure check quota availability",
+				"modelDescription": "This tool will check the Azure quota availability for the resources that are going to be deployed.",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"subscriptionId": {
+							"type": "string",
+							"description": "The Azure subscription ID where the resources will be deployed. Retrieve the subscription ID from the context, or by prompting the user to provide it."
+						},
+						"region": {
+							"type": "string",
+							"description": "The valid Azure region where the resources will be deployed. E.g. 'eastus', 'westus', 'westeurope', etc."
+						},
+						"resourceTypes": {
+							"type": "array",
+							"description": "The valid Azure resource types that are going to be deployed. E.g. 'Microsoft.App/containerApps', 'Microsoft.Web/sites', 'Microsoft.CognitiveServices/accounts', etc.",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					"required": [
+						"subscriptionId",
+						"region",
+						"resourceTypes"
+					]
+				},
+				"toolReferenceName": "azure_check_quota_availability",
+				"canBeReferencedInPrompt": true
+			}
+		]
+	},
+	"agentMetadata": {
+		"version": "2.0",
+		"getPluginsCommand": "@azure.getPlugins"
+	},
+	"scripts": {
+		"watch": "webpack --watch",
+		"build": "node ./scripts/setBuildNumber.js && webpack --mode production --devtool hidden-source-map",
+		"ci-build": "npm test",
+		"package": "node ./scripts/package-all.js",
+		"ci-package": "npm test && vsce package",
+		"lint": "eslint --max-warnings 0 src --ext ts",
+		"test": "node ./out/test/runTest.js",
+		"update-loc-bundle": "npx @vscode/l10n-dev export --outDir ./l10n ./src",
+		"pretest": "tsc -p ./",
+		"test-watch": "tsc -watch -p ./",
+		"export-package-xliff": "npx @vscode/l10n-dev generate-xlf ./package.nls.json --outFile ./l10n/xlf/package.xlf",
+		"export-bundle-xliff": "npx @vscode/l10n-dev generate-xlf ./l10n/bundle.l10n.json --outFile ./l10n/xlf/bundle.xlf",
+		"export-xliff": "npm run export-package-xliff && npm run export-bundle-xliff",
+		"import-package-xliff": "npx @vscode/l10n-dev import-xlf ./l10n/xlf/package.*.xlf",
+		"import-bundle-xliff": "npx @vscode/l10n-dev import-xlf ./l10n/xlf/bundle.*.xlf --outDir ./l10n",
+		"import-xliff": "npm run import-package-xliff && npm run import-bundle-xliff",
+		"update-loc": "npm run update-loc-bundle && npm run export-xliff",
+		"prepackage": "npm run import-xliff",
+		"install-azmcp": "node ./scripts/installAzmcp.js"
+	},
+	"devDependencies": {
+		"@azure/core-auth": "^1.7.2",
+		"@microsoft/eslint-config-azuretools": "^0.2.1",
+		"@types/chai": "^4.3.16",
+		"@types/detect-libc": "^1.0.3",
+		"@types/fs-extra": "^11.0.4",
+		"@types/glob": "^7.2.0",
+		"@types/jsonwebtoken": "^9.0.6",
+		"@types/mocha": "^10.0.6",
+		"@types/node": "20.x",
+		"@types/openapi-v3": "^3.0.0",
+		"@types/vscode": "^1.99.0",
+		"@types/ws": "^7",
+		"@types/yargs-parser": "^21.0.3",
+		"@typescript-eslint/eslint-plugin": "^5.59.11",
+		"@typescript-eslint/parser": "^5.59.11",
+		"@vscode/l10n-dev": "^0.0.35",
+		"@vscode/test-electron": "^2.3.9",
+		"@vscode/vsce": "^3.3.2",
+		"aidriver": "npm:microsoft.azure.copilotforazure.aiservice.webapi.localpackage@0.2.558",
+		"chai": "^4.0.0",
+		"copy-webpack-plugin": "^12.0.2",
+		"eslint": "^8.42.0",
+		"eslint-plugin-import": "^2.27.5",
+		"glob": "^8.1.0",
+		"mocha": "^10.3.0",
+		"nerdbank-gitversioning": "^3.6.141",
+		"ts-loader": "^9.5.1",
+		"ts-node": "^10.9.1",
+		"typescript": "^5.1.3",
+		"webpack": "^5.76.0",
+		"webpack-cli": "^4.6.0",
+		"yargs-parser": "^21.1.1"
+	},
+	"dependencies": {
+		"@azure/arm-appcontainers": "^2.0.0",
+		"@azure/arm-appinsights": "^4.0.0",
+		"@azure/arm-appservice": "^15.0.0",
+		"@azure/arm-containerservice": "^19.8.0",
+		"@azure/arm-operationalinsights": "^9.0.0",
+		"@azure/arm-resourcegraph": "4.2.1",
+		"@azure/core-rest-pipeline": "1.16.2",
+		"@azure/mcp-darwin-arm64": "0.1.1",
+		"@azure/mcp-darwin-x64": "0.1.1",
+		"@azure/mcp-linux-arm64": "0.1.1",
+		"@azure/mcp-linux-x64": "0.1.1",
+		"@azure/mcp-win32-arm64": "0.1.1",
+		"@azure/mcp-win32-x64": "0.1.1",
+		"@azure/monitor-query": "^1.2.0",
+		"@microsoft/signalr": "8.0.0",
+		"@microsoft/vscode-azext-azureauth": "4.1.1",
+		"@microsoft/vscode-azext-azureutils": "^3.2.0",
+		"@microsoft/vscode-azext-utils": "^3.0.0",
+		"@microsoft/vscode-azureresources-api": "^2.4.0",
+		"@vscode/extension-telemetry": "^0.9.7",
+		"@vscode/prompt-tsx": "^0.3.0-alpha.12",
+		"codetocloud": "1.0.16",
+		"detect-libc": "^2.0.3",
+		"fs-extra": "^11.2.0",
+		"jsonwebtoken": "^9.0.2",
+		"semver": "^7.6.0",
+		"typechat": "0.1.0",
+		"ws": "7.5.10",
+		"zod": "3.23.8"
+	},
+	"extensionDependencies": [
+		"ms-azuretools.vscode-azureresourcegroups"
+	],
+	"__metadata": {
+		"installedTimestamp": 1763164413525,
+		"targetPlatform": "win32-x64",
+		"size": 359931815
+	}
+}

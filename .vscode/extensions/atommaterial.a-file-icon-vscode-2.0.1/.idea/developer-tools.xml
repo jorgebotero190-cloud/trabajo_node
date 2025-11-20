@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DeveloperToolsToolWindowSettingsV1" lastSelectedContentNodeId="json-text-escape">
+    <developerToolsConfigurations>
+      <developerToolConfiguration developerToolId="text-sorting-transformer" id="ad48fe69-4667-4c52-b88f-7af4399ae96c" name="Workbench">
+        <properties>
+          <property key="sourceText" type="INPUT" value="kotlin.String|{&#10;    fileExtensions: ['a+'],&#10;    name: 'aplus',&#10;  },&#10;  {&#10;    fileExtensions: ['accda', 'accdb', 'accde', 'accdr', 'accdt', 'adn', 'laccdb', 'maf', 'mam', 'maq', 'mar', 'mdw'],&#10;    name: 'access',&#10;  }," />
+          <property key="sortedJoinWordsDelimiter" type="CONFIGURATION" value="dev.turingcomplete.intellijdevelopertoolsplugin._internal.tool.ui.transformer.TextSortingTransformer$WordsDelimiter|INDIVIDUAL" />
+        </properties>
+      </developerToolConfiguration>
+    </developerToolsConfigurations>
+  </component>
+</project>

@@ -1,0 +1,38 @@
+{
+	"AIzaSyD6-ns-Y-6IpoU6P-IMmQxfYS8qGDjMChw:[DEFAULT]": {
+		"currentUser": {
+			"createdAt": "1687476464045",
+			"displayName": "Jorge Humberto Botero",
+			"email": "boterojorgehumberto@gmail.com",
+			"emailVerified": true,
+			"lastLoginAt": "1687476464046",
+			"localId": "3T7BPlGuK0a1xzQ2pZ9m5O4T4rk2",
+			"photoUrl": "https://lh3.googleusercontent.com/a/AAcHTtckHO5iW01F726ro8uGQh8Nnu9Cn90TE2Rx0qUhFw=s96-c",
+			"providerUserInfo": [
+				{
+					"displayName": "Jorge Humberto Botero",
+					"email": "boterojorgehumberto@gmail.com",
+					"federatedId": "111950407369684971042",
+					"photoUrl": "https://lh3.googleusercontent.com/a/AAcHTtckHO5iW01F726ro8uGQh8Nnu9Cn90TE2Rx0qUhFw=s96-c",
+					"providerId": "google.com",
+					"rawId": "111950407369684971042",
+					"uid": "3T7BPlGuK0a1xzQ2pZ9m5O4T4rk2"
+				}
+			],
+			"validSince": "1687476464",
+			"expiresIn": "3600",
+			"federatedId": "https://accounts.google.com/111950407369684971042",
+			"firstName": "Jorge Humberto",
+			"fullName": "Jorge Humberto Botero",
+			"idToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjhkMDNhZTdmNDczZjJjNmIyNTI3NmMwNjM2MGViOTk4ODdlMjNhYTkiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiSm9yZ2UgSHVtYmVydG8gQm90ZXJvIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FBY0hUdGNrSE81aVcwMUY3MjZybzh1R1FoOE5udTlDbjkwVEUyUngwcVVoRnc9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20veGRyb3AtYzY4OWQiLCJhdWQiOiJ4ZHJvcC1jNjg5ZCIsImF1dGhfdGltZSI6MTY4NzQ3NjQ2NCwidXNlcl9pZCI6IjNUN0JQbEd1SzBhMXh6UTJwWjltNU80VDRyazIiLCJzdWIiOiIzVDdCUGxHdUswYTF4elEycFo5bTVPNFQ0cmsyIiwiaWF0IjoxNjg3NDc2NDY0LCJleHAiOjE2ODc0ODAwNjQsImVtYWlsIjoiYm90ZXJvam9yZ2VodW1iZXJ0b0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMTk1MDQwNzM2OTY4NDk3MTA0MiJdLCJlbWFpbCI6WyJib3Rlcm9qb3JnZWh1bWJlcnRvQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6Imdvb2dsZS5jb20ifX0.rGr7cnfWIWh82nMhojF0x3Qxn1EBIjWb_QmyaFd1THBpHHB6QYof2sa3iFlqRDhzmMg-SjHvSXIAMT6ZRCIH0XFlH358kw89kRYPLw1Uik0IKJiAgfQlV1BFCQb_ItwK19l41JiAphX0N06CQVhgmLeXyQgHDgxSkaZHmLIfeQNqijTMhbrFH6C6VyCYdY4FcHcouQuSJ3agSeVlVIfwV6fb5Msc_NswlwZpO3IQPdmOVrvBm0Kq0LScZ8dUTgGaOF2PAQSRczCi0izsG8w8ipEhIejLFygAWK6n43OgLHF2og371QfYJkhMsCdcKqy6knUy_P_mEz8vmgrrdoYyRw",
+			"isNewUser": true,
+			"kind": "identitytoolkit#VerifyAssertionResponse",
+			"lastName": "Botero",
+			"oauthAccessToken": "ya29.a0AWY7Ckk9FzBD-vF0sDUgxM3IXjt5ia_A-05z6uG4-ju1TQA-AqpTCPIk6zgcSnlW0g0PGKHu3DcqVMj--sGFZ0aaqV4RgxD1rDiEXOUi93zh9cpQZ9pddyVcHBWwW7_s8UQe_915OauRKK917xB2xM5AqHxKaCgYKAQwSARMSFQG1tDrpZLiacG-_megbBxsNVOHasg0163",
+			"oauthIdToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk5YmNiMDY5MzQwYTNmMTQ3NDYyNzk0ZGZlZmE3NWU3OTk2MTM2MzQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI2MzQ3NTUxNTU0NzktY3ZnaTNhYnJzMDgzaGxhYmI4NGg1ZzA3dmc0MWdnNmsuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI2MzQ3NTUxNTU0NzktY3ZnaTNhYnJzMDgzaGxhYmI4NGg1ZzA3dmc0MWdnNmsuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTE5NTA0MDczNjk2ODQ5NzEwNDIiLCJlbWFpbCI6ImJvdGVyb2pvcmdlaHVtYmVydG9AZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJkMjRkUU1DRENFZ2NnaFYxOEFTNzhBIiwiY19oYXNoIjoiakZGUzhVLVlfYXh5QlRLbFJPYVhwQSIsIm5vbmNlIjoiZXlxQVZ3WGRGQUU2M3NELTJOTlZJWG9mY2d0bVNsczgwRkt2RWpmQ2RodE56NlhEMWpJbDBRam9DbUJCSS5vRSIsIm5hbWUiOiJKb3JnZSBIdW1iZXJ0byBCb3Rlcm8iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFjSFR0Y2tITzVpVzAxRjcyNnJvOHVHUWg4Tm51OUNuOTBURTJSeDBxVWhGdz1zOTYtYyIsImdpdmVuX25hbWUiOiJKb3JnZSBIdW1iZXJ0byIsImZhbWlseV9uYW1lIjoiQm90ZXJvIiwibG9jYWxlIjoiZXMtNDE5IiwiaWF0IjoxNjg3NDc2NDYzLCJleHAiOjE2ODc0ODAwNjMsImp0aSI6IjkwMjE3MTdlOTU3YmY2M2Y0NjE2MzU3MTdjZWQyOTc5OTExOTBmZWMifQ.kjfLW3Lx4v5ZqA5ygdXGissAvk25DBdPCjBPx2OsU9s8rJJZCpsZaXNQ9GRiGulEHy9db56_D-ScvfQCX7LSPhVWQ45HGUJPzOLkwKX6-EnS0kl8BafPy5WTjTBW45CVzv0BxsJisHOmrOV41qnv60K1UjCciIQxoUYQgsyynYyBkXasI0tVcWpjgBtxApItZn4IozNJhv3LQJ9QyY-QxNc9SPt0ad5eHqtxyKF2YFu4ZdiUU5aaos8C1JPIHmptDtGwv5t4SF96bu1gxHCwF2aJrF-GfhzMOFZAEaHEyz_CdLVBf-dDV9qDENu_xfmwKzpdaqeAQ_J45JZxU8uKkA",
+			"providerId": "google.com",
+			"rawUserInfo": "{\"iss\":\"https://accounts.google.com\",\"azp\":\"634755155479-cvgi3abrs083hlabb84h5g07vg41gg6k.apps.googleusercontent.com\",\"aud\":\"634755155479-cvgi3abrs083hlabb84h5g07vg41gg6k.apps.googleusercontent.com\",\"sub\":\"111950407369684971042\",\"email\":\"boterojorgehumberto@gmail.com\",\"email_verified\":true,\"at_hash\":\"d24dQMCDCEgcghV18AS78A\",\"c_hash\":\"jFFS8U-Y_axyBTKlROaXpA\",\"nonce\":\"eyqAVwXdFAE63sD-2NNVIXofcgtmSls80FKvEjfCdhtNz6XD1jIl0QjoCmBBI.oE\",\"name\":\"Jorge Humberto Botero\",\"picture\":\"https://lh3.googleusercontent.com/a/AAcHTtckHO5iW01F726ro8uGQh8Nnu9Cn90TE2Rx0qUhFw=s96-c\",\"given_name\":\"Jorge Humberto\",\"family_name\":\"Botero\",\"locale\":\"es-419\",\"iat\":1687476463,\"exp\":1687480063,\"jti\":\"9021717e957bf63f461635717ced297991190fec\"}",
+			"refreshToken": "APZUo0R_qCEQBxrDOezzZCL33C_Bbtfz9QWXJf0Fert1PxQHSXixqYaQCSw0YvP7Ne9-XkAMl1ZHKqAhxVbV6hLZEMI1BNnvubHMSj0p7hb41v9Ccr5Y8UimBsssUMikZvuzoq8vRgsA4dzELsaRskCqUnv3I642gOutdo0fBVH-jzE8Z1zS-PJXrmd7SfqBXK7X6A5R92EPgSeK0y_SoNSFDo8p2oRiNHZY9rcZEvu5PK-cdfRBECsjH0hfDNOq_44L49qTn65utomh0nxV3QhmcHUwudIVCtxfE-pA4EZ1L07CIda-OD_Mepx5uRGQpLT8TsKSKDNDAcXSaVbOomHgyEvTt1H2vVxQTs79iLXB9dG05wyoZ5YZ9WYp4FTbCaiw40fW4M1x5EoADDXjiQUK1sabfagzFhtQgKAMp3FK8U288stKtziooD7seih-ttV8oWUcm2fG"
+		}
+	}
+}

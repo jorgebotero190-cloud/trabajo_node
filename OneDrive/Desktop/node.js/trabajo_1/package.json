@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-   "start": "node --watch index.js"
-
+    "start": "node --watch index.js"
   },
   "keywords": [],
   "author": "jorge h",
@@ -15,5 +14,8 @@
   "dependencies": {
     "express": "^5.1.0",
     "prompt-sync": "^4.2.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-react-hooks": "^7.0.1"
   }
 }

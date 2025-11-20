@@ -3,6 +3,9 @@ const readline = require('readline');
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk'); // ← COLORES
+const chalk = require('chalk');
+const { verde } = require('./verde');
+console.log(verde('Texto en verde'));
 
 const rl = readline.createInterface({
   input: process.stdin,

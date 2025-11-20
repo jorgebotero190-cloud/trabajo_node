@@ -1,0 +1,104 @@
+{
+	"name": "Jvavscode",
+	"displayName": "Jvavscode",
+	"publisher": "Amiriox",
+	"description": "Jvav Language for vscode",
+	"keywords": [
+		"vscode",
+		"plugin",
+		"Jvav",
+		"Jvavscode",
+		"JVSC",
+		"TZG",
+		"Amiriox"
+	],
+	"version": "0.2.0",
+	"engines": {
+		"vscode": "^1.45.0"
+	},
+	"categories": [
+		"Programming Languages"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./extension.js",
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "Jvav编译选项",
+			"properties": {
+				"Jvavscode.includePath": {
+					"type": "string",
+					"default": "C:\\Jvav\\lib",
+					"description": "头文件所在位置"
+				},
+				"Jvavscode.isStrict": {
+					"type": "boolean",
+					"default": false,
+					"description": "是否开启严格模式(目前不可用)"
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "Jvavscode.compile",
+				"title": "Jvav Compile"
+			},
+			{
+				"command": "Jvavscode.p",
+				"title": "Jvav Make Exe"
+			}
+		],
+		"capabilities": {
+			"completionProvider": {
+				"resolveProvider": "true",
+				"triggerCharacters": "*"
+			}
+		},
+		"keybindings": [
+			{
+				"command": "Jvavscode.compile",
+				"key": "ctrl+f5"
+			},
+			{
+				"command": "Jvavscode.p",
+				"key": "ctrl+f6"
+			}
+		],
+		"languages": [
+			{
+				"id": "jvav",
+				"aliases": [
+					"jvav",
+					"jvav"
+				],
+				"extensions": [
+					".jvav"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "jvav",
+				"scopeName": "source.jvav",
+				"path": "./syntaxes/jvav.tmLanguage.json"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"when": "editorFocus",
+					"command": "Jvavscode.compile",
+					"group": "navigation"
+				}
+			]
+		}
+	},
+	"__metadata": {
+		"installedTimestamp": 1754479866209,
+		"targetPlatform": "undefined",
+		"size": 637329
+	}
+}
